@@ -1,0 +1,45 @@
+package com.company.gameLogic;
+
+import com.company.gameElement.Board;
+
+public class GameState {
+    private Board board;
+
+    public GameState(Board board) {
+        this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public boolean isGameOver() {
+        return isWon() || isDraw();
+    }
+
+    public boolean isDraw() {
+        if (isWon()) {
+            return false;
+        }
+
+        try {
+            for (int i = 1; i < 10; i++) {
+                if (board.get(i) == null) {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Błąd w funkcji isDraw");
+        }
+
+        return true;
+    }
+
+    public boolean isWon() {
+        return (new Judge(board).isWon());
+    }
+}
